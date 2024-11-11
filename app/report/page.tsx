@@ -1,13 +1,14 @@
 'use client'
 import { useState, useCallback, useEffect } from 'react'
-import {  MapPin, Upload, CheckCircle, Loader } from 'lucide-react'
+import { MapPin, Upload, CheckCircle, Loader } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { GoogleGenerativeAI } from "@google/generative-ai";
-import { StandaloneSearchBox,  useJsApiLoader } from '@react-google-maps/api'
-import { Libraries } from '@react-google-maps/api';
-import { createUser, getUserByEmail, createReport, getRecentReports } from '@/utils/db/actions';
-import { useRouter } from 'next/navigation';
+import { GoogleGenerativeAI } from "@google/generative-ai"
+import { StandaloneSearchBox, useJsApiLoader } from '@react-google-maps/api'
+import { Libraries } from '@react-google-maps/api'
+import { createUser, getUserByEmail, createReport, getRecentReports } from '@/utils/db/actions'
+import { useRouter } from 'next/navigation'
 import { toast } from 'react-hot-toast'
+import { SignInButton, useUser } from "@clerk/nextjs";
 
 const geminiApiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 const googleMapsApiKey = "AIzaSyAO2vCIJFE9J0ZPRDEtVrTlJwbFyNd16AI";
@@ -15,6 +16,7 @@ const googleMapsApiKey = "AIzaSyAO2vCIJFE9J0ZPRDEtVrTlJwbFyNd16AI";
 const libraries: Libraries = ['places'];
 
 export default function ReportPage() {
+  const { user: clerkUser } = useUser();
   const [user, setUser] = useState<{ id: number; email: string; name: string } | null>(null);
   const router = useRouter();
 
@@ -30,24 +32,24 @@ export default function ReportPage() {
     location: '',
     type: '',
     amount: '',
-  })
+  });
 
-  const [file, setFile] = useState<File | null>(null)
-  const [preview, setPreview] = useState<string | null>(null)
-  const [verificationStatus, setVerificationStatus] = useState<'idle' | 'verifying' | 'success' | 'failure'>('idle')
+  const [file, setFile] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string | null>(null);
+  const [verificationStatus, setVerificationStatus] = useState<'idle' | 'verifying' | 'success' | 'failure'>('idle');
   const [verificationResult, setVerificationResult] = useState<{
     wasteType: string;
     quantity: string;
     confidence: number;
-  } | null>(null)
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  } | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [searchBox, setSearchBox] = useState<google.maps.places.SearchBox | null>(null);
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: googleMapsApiKey!,
-    libraries: libraries
+    libraries: libraries,
   });
 
   const onLoad = useCallback((ref: google.maps.places.SearchBox) => {
@@ -198,11 +200,11 @@ export default function ReportPage() {
 
   useEffect(() => {
     const checkUser = async () => {
-      const email = localStorage.getItem('userEmail');
-      if (email) {
+      if (clerkUser) {
+        const email = clerkUser.emailAddresses[0].emailAddress;
         let user = await getUserByEmail(email);
         if (!user) {
-          user = await createUser(email, 'Anonymous User');
+          user = await createUser(email, clerkUser.fullName || 'Anonymous User');
         }
         setUser(user);
         
@@ -213,11 +215,11 @@ export default function ReportPage() {
         }));
         setReports(formattedReports);
       } else {
-        router.push('/login'); 
+       <SignInButton />
       }
     };
     checkUser();
-  }, [router]);
+  }, [clerkUser, router]);
 
   return (
     <div className="p-8 max-w-4xl mx-auto">
