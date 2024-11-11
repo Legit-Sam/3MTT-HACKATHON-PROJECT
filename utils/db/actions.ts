@@ -22,6 +22,21 @@ export async function getUserByEmail(email: string) {
   }
 }
 
+// export async function createOrUpdateUser (
+// clerkUserId: string,
+// email: string,
+// name: string,
+// ){
+//   try {
+//     const [existingUser] = await db.select().from(Users).where(eq());
+    
+//   } catch (error) {
+    
+//   }
+
+
+// }
+
 export async function createReport(
   userId: number,
   location: string,
