@@ -5,12 +5,12 @@ import { MapPin, Trash, Coins, Medal, Settings, Home, Car, Book, Map } from "luc
 
 const sidebarItems = [
   { href: "/", icon: Home, label: "Home" },
-  { href: "/report", icon: MapPin, label: "Report Waste" },
-  { href: "/collect", icon: Trash, label: "Collect Waste" },
-  { href: "/rewards", icon: Coins, label: "Rewards" },
-  { href: "/leaderboard", icon: Medal, label: "Leaderboard" },
-  { href: "/educationalBlog", icon: Book, label: "Educational Blog" }, 
-  { href: "/RecyclingCenters", icon: Map, label: "Recycling Centers" },
+  { href: "/dashboard/report", icon: MapPin, label: "Report Waste" },
+  { href: "/dashboard/collect", icon: Trash, label: "Collect Waste" },
+  { href: "/dashboard/rewards", icon: Coins, label: "Rewards" },
+  { href: "/dashboard/leaderboard", icon: Medal, label: "Leaderboard" },
+  { href: "/dashboard/educationalBlog", icon: Book, label: "Educational Blog" }, 
+  { href: "/dashboard/RecyclingCenters", icon: Map, label: "Recycling Centers" },
 ]
 
 interface SidebarProps {
@@ -41,11 +41,11 @@ export default function Sidebar({ open }: SidebarProps) {
           ))}
         </div>
         <div className="p-4 border-t border-gray-200">
-          <Link href="/settings" passHref>
+          <Link href="/dashboard/settings" passHref>
             <Button 
               variant={pathname === "/settings" ? "secondary" : "outline"}
               className={`w-full py-3 ${
-                pathname === "/settings"
+                pathname === "/dashboard/settings"
                   ? "bg-green-100 text-green-800"
                   : "text-gray-600 border-gray-300 hover:bg-gray-100"
               }`} 

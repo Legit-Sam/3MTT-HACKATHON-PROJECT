@@ -1,22 +1,20 @@
 'use client'
 import { useState, useCallback, useEffect } from 'react'
-import { MapPin, Upload, CheckCircle, Loader } from 'lucide-react'
+import {  MapPin, Upload, CheckCircle, Loader } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { GoogleGenerativeAI } from "@google/generative-ai"
-import { StandaloneSearchBox, useJsApiLoader } from '@react-google-maps/api'
-import { Libraries } from '@react-google-maps/api'
-import { createUser, getUserByEmail, createReport, getRecentReports } from '@/utils/db/actions'
-import { useRouter } from 'next/navigation'
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { StandaloneSearchBox,  useJsApiLoader } from '@react-google-maps/api'
+import { Libraries } from '@react-google-maps/api';
+import { createUser, getUserByEmail, createReport, getRecentReports } from '@/utils/db/actions';
+import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast'
-import { SignInButton, useUser } from "@clerk/nextjs";
 
 const geminiApiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-const googleMapsApiKey = "AIzaSyAO2vCIJFE9J0ZPRDEtVrTlJwbFyNd16AI";
+const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
 const libraries: Libraries = ['places'];
 
 export default function ReportPage() {
-  const { user: clerkUser } = useUser();
   const [user, setUser] = useState<{ id: number; email: string; name: string } | null>(null);
   const router = useRouter();
 
@@ -32,24 +30,24 @@ export default function ReportPage() {
     location: '',
     type: '',
     amount: '',
-  });
+  })
 
-  const [file, setFile] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string | null>(null);
-  const [verificationStatus, setVerificationStatus] = useState<'idle' | 'verifying' | 'success' | 'failure'>('idle');
+  const [file, setFile] = useState<File | null>(null)
+  const [preview, setPreview] = useState<string | null>(null)
+  const [verificationStatus, setVerificationStatus] = useState<'idle' | 'verifying' | 'success' | 'failure'>('idle')
   const [verificationResult, setVerificationResult] = useState<{
     wasteType: string;
     quantity: string;
     confidence: number;
-  } | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  } | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const [searchBox, setSearchBox] = useState<google.maps.places.SearchBox | null>(null);
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: googleMapsApiKey!,
-    libraries: libraries,
+    libraries: libraries
   });
 
   const onLoad = useCallback((ref: google.maps.places.SearchBox) => {
@@ -96,64 +94,36 @@ export default function ReportPage() {
   };
 
   const handleVerify = async () => {
-    if (!file) return
-
-    setVerificationStatus('verifying')
-    
+    if (!file) return;
+  
+    setVerificationStatus('verifying');
+  
+    // Simulate dummy data for quick verification
+    const dummyVerificationResult = {
+      wasteType: 'Plastic, Paper, Glass, Metal and organic ',
+      quantity: '100 kg',
+      confidence: 0.95,
+    };
+  
     try {
-      const genAI = new GoogleGenerativeAI(geminiApiKey!);
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
-      const base64Data = await readFileAsBase64(file);
-
-      const imageParts = [
-        {
-          inlineData: {
-            data: base64Data.split(',')[1],
-            mimeType: file.type,
-          },
-        },
-      ];
-
-      const prompt = `You are an expert in waste management and recycling. Analyze this image and provide:
-        1. The type of waste (e.g., plastic, paper, glass, metal, organic)
-        2. An estimate of the quantity or amount (in kg or liters)
-        3. Your confidence level in this assessment (as a percentage)
-        
-        Respond in JSON format like this:
-        {
-          "wasteType": "type of waste",
-          "quantity": "estimated quantity with unit",
-          "confidence": confidence level as a number between 0 and 1
-        }`;
-
-      const result = await model.generateContent([prompt, ...imageParts]);
-      const response = await result.response;
-      const text = response.text();
-      
-      try {
-        const parsedResult = JSON.parse(text);
-        if (parsedResult.wasteType && parsedResult.quantity && parsedResult.confidence) {
-          setVerificationResult(parsedResult);
-          setVerificationStatus('success');
-          setNewReport({
-            ...newReport,
-            type: parsedResult.wasteType,
-            amount: parsedResult.quantity
-          });
-        } else {
-          console.error('Invalid verification result:', parsedResult);
-          setVerificationStatus('failure');
-        }
-      } catch (error) {
-        console.error('Failed to parse JSON response:', text);
-        setVerificationStatus('failure');
-      }
+      // Simulate AI verification delay for a better UX
+      setTimeout(() => {
+        setVerificationResult(dummyVerificationResult);
+        setVerificationStatus('success');
+        setNewReport({
+          ...newReport,
+          type: dummyVerificationResult.wasteType,
+          amount: dummyVerificationResult.quantity,
+        });
+        toast.success('Verification successful (using dummy data).');
+      }, 1000); // Simulate a 1-second delay
     } catch (error) {
-      console.error('Error verifying waste:', error);
+      console.error('Error during dummy verification:', error);
       setVerificationStatus('failure');
+      toast.error('Verification failed. Please try again.');
     }
-  }
+  };
+  
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -200,11 +170,11 @@ export default function ReportPage() {
 
   useEffect(() => {
     const checkUser = async () => {
-      if (clerkUser) {
-        const email = clerkUser.emailAddresses[0].emailAddress;
+      const email = localStorage.getItem('userEmail');
+      if (email) {
         let user = await getUserByEmail(email);
         if (!user) {
-          user = await createUser(email, clerkUser.fullName || 'Anonymous User');
+          user = await createUser(email, 'Anonymous User');
         }
         setUser(user);
         
@@ -215,11 +185,11 @@ export default function ReportPage() {
         }));
         setReports(formattedReports);
       } else {
-       <SignInButton />
+        router.push('/login'); 
       }
     };
     checkUser();
-  }, [clerkUser, router]);
+  }, [router]);
 
   return (
     <div className="p-8 max-w-4xl mx-auto">

@@ -62,7 +62,7 @@ export async function createReport(
       .execute();
 
     // Award 10 points for reporting waste
-    const pointsEarned = 10;
+    const pointsEarned = 0;
     await updateRewardPoints(userId, pointsEarned);
 
     // Create a transaction for the earned points
@@ -71,7 +71,7 @@ export async function createReport(
     // Create a notification for the user
     await createNotification(
       userId,
-      `You've earned ${pointsEarned} points for reporting waste!`,
+      `You've earned ${pointsEarned} points for reporting waste!, Please kindly verify to claim your token`,
       'reward'
     );
 
