@@ -50,8 +50,8 @@ export default function RootLayout({
 
   return (
     <ClerkProvider>
-        <html lang="en" className={inter.className}>
-      <body>
+        <html lang="en">
+      <body className={inter.className}>
         <div className="min-h-screen bg-gray-50 flex flex-col">
           <Header onMenuClick={() => setSidebarOpen(!sidebarOpen)} totalEarnings={totalEarnings} />
           <div className="flex flex-1">
