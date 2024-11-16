@@ -1,11 +1,12 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { SignInButton, useUser } from "@clerk/nextjs";
-import Link from "next/link";
-import React, { useState } from "react";
+//@ts-nocheck
+'use client';
+import { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { useClerk, useUser , SignIn, SignInButton } from '@clerk/nextjs'; // Import Clerk hooks
 
-const page = () => {
-const [menuOpen, setMenuOpen] = useState(false);
+export default function Home() {
+  const [menuOpen, setMenuOpen] = useState(false);
 const { user, isSignedIn } = useUser (); 
 
   return (
@@ -93,10 +94,8 @@ const { user, isSignedIn } = useUser ();
           <a href="#" className="text-lg hover:underline">
             Contact
           </a>
-
-          <Link className="text-lg hover:underline" href="/">
          {isSignedIn ? (
-          <Link href={"/dashboard"} className="text-lg hover:underline" >
+          <Link href="/dashboard" className="text-lg" >
             Dashboard
           </Link>
          ): (
@@ -105,7 +104,7 @@ const { user, isSignedIn } = useUser ();
           </Button>
          )}
      
-       </Link>
+      
         </nav>
       </div>
     </header>
@@ -124,7 +123,7 @@ const { user, isSignedIn } = useUser ();
     </p>
    {isSignedIn ? (
  <button className="mt-6 bg-yellow-500 text-white py-3 px-6 rounded-lg text-lg">
- <Link href={"/dashboard"} className="text-lg" >
+ <Link href="/dashboard" className="text-lg" >
            Make a Request
           </Link>
 </button>
@@ -393,7 +392,6 @@ const { user, isSignedIn } = useUser ();
             <textarea
               placeholder="Write Your Question or Suggestion..."
               className="w-full p-3 bg-green-800 text-white border border-green-700 rounded-lg focus:outline-none"
-             
             ></textarea>
             <button
               type="submit"
@@ -564,7 +562,5 @@ const { user, isSignedIn } = useUser ();
 
                 </div>
             );
-        };
-
-
-export default page;
+ 
+}
