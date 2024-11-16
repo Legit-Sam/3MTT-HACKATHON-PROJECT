@@ -1,0 +1,236 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diligent - Innovative Solutions for a Cleaner Planet</title>
+    <script src="https://unpkg.com/react/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const App = () => {
+            return (
+                <div>
+                    <header className="bg-yellow-500 text-white py-4">
+                        <div className="container mx-auto flex justify-between items-center">
+                            <div className="flex items-center">
+                                <img src="https://placehold.co/50x50" alt="Diligent Logo" className="mr-4"/>
+                                <h1 className="text-2xl font-bold">Diligent</h1>
+                            </div>
+                            <nav className="flex space-x-4">
+                                <a href="#" className="hover:underline">Home</a>
+                                <a href="#" className="hover:underline">About</a>
+                                <a href="#" className="hover:underline">Services</a>
+                                <a href="#" className="hover:underline">Contact</a>
+                            </nav>
+                        </div>
+                    </header>
+
+                    <section className="relative">
+                        <img src="https://placehold.co/1920x600" alt="Worker with garbage truck" className="w-full"/>
+                        <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center text-white">
+                            <h2 className="text-4xl font-bold mb-4">Innovative Solutions for a Cleaner Planet</h2>
+                            <p className="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultricies turpis non magna.</p>
+                            <button className="bg-yellow-500 text-white py-2 px-4 rounded">Make a Request</button>
+                        </div>
+                    </section>
+
+                    <section className="bg-green-800 text-white py-8">
+                        <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                            <div>
+                                <i className="fas fa-recycle text-4xl mb-2"></i>
+                                <h3 className="text-xl font-bold">Reliable Collection</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultricies turpis non magna.</p>
+                            </div>
+                            <div>
+                                <i className="fas fa-recycle text-4xl mb-2"></i>
+                                <h3 className="text-xl font-bold">Extensive Recycling</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultricies turpis non magna.</p>
+                            </div>
+                            <div>
+                                <i className="fas fa-recycle text-4xl mb-2"></i>
+                                <h3 className="text-xl font-bold">Safe Disposal</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultricies turpis non magna.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="py-16">
+                        <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="flex items-center">
+                                <div className="bg-yellow-500 text-white text-4xl font-bold p-8">24+</div>
+                                <img src="https://placehold.co/400x300" alt="Worker collecting garbage" className="ml-4"/>
+                            </div>
+                            <div>
+                                <h2 className="text-3xl font-bold mb-4">Our Vision for Cleaner Planet</h2>
+                                <p className="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultricies turpis non magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultricies turpis non magna.</p>
+                                <ul className="list-disc list-inside">
+                                    <li className="mb-2">Our Vision</li>
+                                    <li className="mb-2">Our Mission</li>
+                                </ul>
+                                <button className="bg-yellow-500 text-white py-2 px-4 rounded mt-4">Learn More</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="bg-gray-100 py-16">
+                        <div className="container mx-auto text-center">
+                            <h2 className="text-3xl font-bold mb-8">Efficient Solutions for a Greener Tomorrow</h2>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                <div className="bg-white p-4 shadow">
+                                    <img src="https://placehold.co/400x300" alt="Residential Waste Collection" className="mb-4"/>
+                                    <h3 className="text-xl font-bold mb-2">Residential Waste Collection</h3>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultricies turpis non magna.</p>
+                                </div>
+                                <div className="bg-white p-4 shadow">
+                                    <img src="https://placehold.co/400x300" alt="Commercial Waste Management" className="mb-4"/>
+                                    <h3 className="text-xl font-bold mb-2">Commercial Waste Management</h3>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultricies turpis non magna.</p>
+                                </div>
+                                <div className="bg-white p-4 shadow">
+                                    <img src="https://placehold.co/400x300" alt="Industrial Waste Disposal" className="mb-4"/>
+                                    <h3 className="text-xl font-bold mb-2">Industrial Waste Disposal</h3>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultricies turpis non magna.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="py-16">
+                        <div className="container mx-auto text-center">
+                            <h2 className="text-3xl font-bold mb-8">Smart Solutions for Waste and Recycling</h2>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div className="flex items-center justify-center">
+                                    <div className="text-center">
+                                        <i className="fas fa-cogs text-4xl mb-2"></i>
+                                        <h3 className="text-xl font-bold">Operations Management</h3>
+                                    </div>
+                                </div>
+                                <div className="flex items-center justify-center">
+                                    <div className="text-center">
+                                        <i className="fas fa-headset text-4xl mb-2"></i>
+                                        <h3 className="text-xl font-bold">Customer Service</h3>
+                                    </div>
+                                </div>
+                                <div className="flex items-center justify-center">
+                                    <div className="text-center">
+                                        <i className="fas fa-leaf text-4xl mb-2"></i>
+                                        <h3 className="text-xl font-bold">Environmental Practices</h3>
+                                    </div>
+                                </div>
+                                <div className="flex items-center justify-center">
+                                    <div className="text-center">
+                                        <i className="fas fa-recycle text-4xl mb-2"></i>
+                                        <h3 className="text-xl font-bold">Sustainability</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="bg-green-800 text-white py-16">
+                        <div className="container mx-auto text-center">
+                            <h2 className="text-3xl font-bold mb-8">Satisfied Clients, Cleaner Planet</h2>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                <div className="bg-green-700 p-4 rounded">
+                                    <p className="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultricies turpis non magna.</p>
+                                    <h3 className="text-xl font-bold">Eleanor Thompson</h3>
+                                </div>
+                                <div className="bg-green-700 p-4 rounded">
+                                    <p className="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultricies turpis non magna.</p>
+                                    <h3 className="text-xl font-bold">Joseph Lee</h3>
+                                </div>
+                                <div className="bg-green-700 p-4 rounded">
+                                    <p className="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultricies turpis non magna.</p>
+                                    <h3 className="text-xl font-bold">Alison Baker</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="bg-gray-100 py-16">
+                        <div className="container mx-auto text-center">
+                            <h2 className="text-3xl font-bold mb-8">Read Our Latest News & Blog</h2>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                <div className="bg-white p-4 shadow">
+                                    <img src="https://placehold.co/400x300" alt="Eco-Friendly Practices" className="mb-4"/>
+                                    <h3 className="text-xl font-bold mb-2">Eco-Friendly Practices for a Greener Future</h3>
+                                    <p className="text-gray-600 mb-4">March 15, 2023</p>
+                                    <button className="bg-yellow-500 text-white py-2 px-4 rounded">Read More</button>
+                                </div>
+                                <div className="bg-white p-4 shadow">
+                                    <img src="https://placehold.co/400x300" alt="Innovative Waste Management Solutions" className="mb-4"/>
+                                    <h3 className="text-xl font-bold mb-2">Innovative Waste Management Solutions</h3>
+                                    <p className="text-gray-600 mb-4">March 10, 2023</p>
+                                    <button className="bg-yellow-500 text-white py-2 px-4 rounded">Read More</button>
+                                </div>
+                                <div className="bg-white p-4 shadow">
+                                    <img src="https://placehold.co/400x300" alt="Top Tips for Effective Recycling" className="mb-4"/>
+                                    <h3 className="text-xl font-bold mb-2">Top Tips for Effective Recycling</h3>
+                                    <p className="text-gray-600 mb-4">March 5, 2023</p>
+                                    <button className="bg-yellow-500 text-white py-2 px-4 rounded">Read More</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="bg-green-800 text-white py-16">
+                        <div className="container mx-auto text-center">
+                            <h2 className="text-3xl font-bold mb-8">Take the First Step Towards Sustainability</h2>
+                            <button className="bg-yellow-500 text-white py-2 px-4 rounded">Get Started</button>
+                        </div>
+                    </section>
+
+                    <footer className="bg-green-900 text-white py-8">
+                        <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+                            <div>
+                                <h3 className="text-xl font-bold mb-4">Diligent</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultricies turpis non magna.</p>
+                            </div>
+                            <div>
+                                <h3 className="text-xl font-bold mb-4">Quick Links</h3>
+                                <ul>
+                                    <li className="mb-2"><a href="#" className="hover:underline">Home</a></li>
+                                    <li className="mb-2"><a href="#" className="hover:underline">About</a></li>
+                                    <li className="mb-2"><a href="#" className="hover:underline">Services</a></li>
+                                    <li className="mb-2"><a href="#" className="hover:underline">Contact</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 className="text-xl font-bold mb-4">Services</h3>
+                                <ul>
+                                    <li className="mb-2"><a href="#" className="hover:underline">Residential Waste Collection</a></li>
+                                    <li className="mb-2"><a href="#" className="hover:underline">Commercial Waste Management</a></li>
+                                    <li className="mb-2"><a href="#" className="hover:underline">Industrial Waste Disposal</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 className="text-xl font-bold mb-4">Newsletter Signup</h3>
+                                <form>
+                                    <input type="email" placeholder="Your email" className="w-full p-2 mb-4"/>
+                                    <button className="bg-yellow-500 text-white py-2 px-4 rounded w-full">Subscribe</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div className="text-center mt-8">
+                            <p>&copy; 2023 Diligent. All Rights Reserved.</p>
+                        </div>
+                    </footer>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>

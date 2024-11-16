@@ -393,7 +393,7 @@ const { user, isSignedIn } = useUser ();
             <textarea
               placeholder="Write Your Question or Suggestion..."
               className="w-full p-3 bg-green-800 text-white border border-green-700 rounded-lg focus:outline-none"
-             
+              rows="4"
             ></textarea>
             <button
               type="submit"
