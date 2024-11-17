@@ -10,6 +10,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { Package, Users, Shield, RefreshCcw } from 'lucide-react';
 import { metadata } from "./metadata";
+import { motion } from "framer-motion";
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -30,6 +31,67 @@ useEffect(() => {
 useEffect(() => {
   document.title = metadata.title; // Set the document title
 }, []);
+
+const cardVariants = {
+  offscreen: {
+    opacity: 0,
+    rotate: -360,
+  },
+  onscreen: (i) => ({
+    opacity: 1,
+    rotate: 0,
+    transition: {
+      delay: i * 0.2, // Stagger effect for each card
+      type: "spring",
+      stiffness: 50,
+      damping: 10,
+      duration: 1,
+    },
+  }),
+};
+
+const sectionVariants = {
+  hidden: { opacity: 0, x: -100 }, // Hidden off-screen to the left
+  visible: {
+    opacity: 1,
+    x: 0, // Comes back to its position
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 20,
+      duration: 1,
+    },
+  },
+};
+
+
+const blogs = [
+  {
+    title: "Eco-Friendly Practices for a Greener...",
+    date: "March 25, 2024",
+    category: "Team Waste Tracker",
+    image: "/1.jpg", // Replace with actual image paths
+    description:
+      "Discover practical tips for reducing waste, conserving resources, and adopting eco-friendly habits to create a more sustainable environment.",
+  },
+  {
+    title: "Innovative Waste Management Solutions",
+    date: "March 25, 2024",
+    category: "Team Waste Tracker",
+    image: "/use.jpg",
+    description:
+      "Explore groundbreaking technologies and strategies revolutionizing how we collect, process, and recycle waste for a cleaner future.",
+  },
+  {
+    title: "Top Tips for Effective Recycling...",
+    date: "March 25, 2024",
+    category: "Team Waste Tracker",
+    image: "/coll.jpg",
+    description:
+      "Learn how to recycle efficiently, identify recyclable materials, and reduce contamination to make your efforts truly impactful.",
+  },
+];
+
   return (
     <div>
         <header className="bg-darkGreen text-white py-4 fixed top-0 left-0 right-0 z-20">
@@ -339,65 +401,70 @@ useEffect(() => {
    
 
     <section className="bg-white py-16">
-      <div className="max-w-screen-xl mx-auto px-6 text-center">
-        <h3 className="text-yellow-500 font-medium text-lg">Management</h3>
-        <h1 className="text-3xl font-bold mt-2">
-          Smart Solutions for Waste and Recycling
-        </h1>
-        <p className="text-gray-600 mt-4">
-          Our approach to waste and recycling management ensures a sustainable future through smart solutions that streamline processes, promote recycling, and minimize environmental impact. We focus on efficiency and long-term ecological benefits for communities.
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
-          {/* Operations Management */}
-          <div className="flex flex-col items-center bg-gray-100 p-6 rounded-lg shadow-lg">
+    <div className="max-w-screen-xl mx-auto px-6 text-center">
+      <h3 className="text-yellow-500 font-medium text-lg">Management</h3>
+      <h1 className="text-3xl font-bold mt-2">
+        Smart Solutions for Waste and Recycling
+      </h1>
+      <p className="text-gray-600 mt-4">
+        Our approach to waste and recycling management ensures a sustainable
+        future through smart solutions that streamline processes, promote
+        recycling, and minimize environmental impact. We focus on efficiency
+        and long-term ecological benefits for communities.
+      </p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+        {[
+          {
+            icon: <Package className="text-xl font-bold" />,
+            title: "Operations Management",
+            text: "We optimize waste collection, sorting, and processing with advanced technologies to improve efficiency and reduce operational costs.",
+          },
+          {
+            icon: <Users className="text-xl font-bold" />,
+            title: "Customer Service",
+            text: "Our customer service team is dedicated to providing excellent support, ensuring that all inquiries and requests are addressed promptly and professionally.",
+          },
+          {
+            icon: <Shield className="text-xl font-bold" />,
+            title: "Environmental Compliance",
+            text: "We ensure strict adherence to environmental regulations, focusing on waste diversion and safe disposal methods that protect the environment.",
+          },
+          {
+            icon: <RefreshCcw className="text-xl font-bold" />,
+            title: "Sustainability and Innovation",
+            text: "We drive innovation in waste management and recycling technologies, ensuring a sustainable approach to resource recovery and reuse.",
+          },
+        ].map((card, i) => (
+          <motion.div
+            key={i}
+            className="flex flex-col items-center bg-gray-100 p-6 rounded-lg shadow-lg"
+            custom={i}
+            initial="offscreen"
+            whileInView="onscreen"
+            viewport={{ once: true, amount: 0.8 }}
+            variants={cardVariants}
+          >
             <div className="w-16 h-16 bg-green-700 flex items-center justify-center rounded-full text-white">
-              <Package className="text-xl font-bold" />
+              {card.icon}
             </div>
-            <h2 className="text-lg font-bold mt-4">Operations Management</h2>
-            <p className="text-gray-600 mt-2">
-              We optimize waste collection, sorting, and processing with advanced technologies to improve efficiency and reduce operational costs.
-            </p>
-          </div>
-          {/* Customer Service */}
-          <div className="flex flex-col items-center bg-gray-100 p-6 rounded-lg shadow-lg">
-            <div className="w-16 h-16 bg-green-700 flex items-center justify-center rounded-full text-white">
-              <Users className="text-xl font-bold" />
-            </div>
-            <h2 className="text-lg font-bold mt-4">Customer Service</h2>
-            <p className="text-gray-600 mt-2">
-              Our customer service team is dedicated to providing excellent support, ensuring that all inquiries and requests are addressed promptly and professionally.
-            </p>
-          </div>
-          {/* Environmental Compliance */}
-          <div className="flex flex-col items-center bg-gray-100 p-6 rounded-lg shadow-lg">
-            <div className="w-16 h-16 bg-green-700 flex items-center justify-center rounded-full text-white">
-              <Shield className="text-xl font-bold" />
-            </div>
-            <h2 className="text-lg font-bold mt-4">Environmental Compliance</h2>
-            <p className="text-gray-600 mt-2">
-              We ensure strict adherence to environmental regulations, focusing on waste diversion and safe disposal methods that protect the environment.
-            </p>
-          </div>
-          {/* Sustainability and Innovation */}
-          <div className="flex flex-col items-center bg-gray-100 p-6 rounded-lg shadow-lg">
-            <div className="w-16 h-16 bg-green-700 flex items-center justify-center rounded-full text-white">
-              <RefreshCcw className="text-xl font-bold" />
-            </div>
-            <h2 className="text-lg font-bold mt-4">Sustainability and Innovation</h2>
-            <p className="text-gray-600 mt-2">
-              We drive innovation in waste management and recycling technologies, ensuring a sustainable approach to resource recovery and reuse.
-            </p>
-          </div>
-        </div>
+            <h2 className="text-lg font-bold mt-4">{card.title}</h2>
+            <p className="text-gray-600 mt-2">{card.text}</p>
+          </motion.div>
+        ))}
       </div>
-    </section>
+    </div>
+  </section>
 
-
-
-    <section className="bg-gray-50 py-16">
+  <section className="bg-gray-50 py-16">
       <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* Left: Request Your Quote Form */}
-        <div className="bg-green-900 text-white p-8 rounded-lg shadow-md">
+        <motion.div
+          className="bg-green-900 text-white p-8 rounded-lg shadow-md"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.8 }} // Triggers once when 80% of the section is in view
+          variants={sectionVariants}
+        >
           <h2 className="text-2xl font-bold mb-6">Request Your Quote</h2>
           <form className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -448,58 +515,107 @@ useEffect(() => {
               Submit Your Request
             </button>
           </form>
-        </div>
+        </motion.div>
 
         {/* Right: FAQ Section */}
         <div>
-  <h3 className="text-lg text-gray-500 font-medium">Have a Question?</h3>
-  <h2 className="text-3xl font-bold mt-2 mb-4">
-    Any Questions? Don't Hesitate to Ask Us
-  </h2>
-  <p className="text-gray-600 mb-6">
-    If you have questions about our waste and recycling services, we are here to help. Reach out to us and we'll provide clear answers and guidance.
-  </p>
-  <div className="space-y-4">
-    {/* FAQ Item */}
-    <div>
-      <h4 className="font-bold text-yellow-500 mb-1">
-        What types of waste do you collect?
-      </h4>
-      <p className="text-gray-600">
-        We collect residential, commercial, and industrial waste, including recyclables, non-recyclables, and organic waste.
-      </p>
-    </div>
-    <div className="border-t border-gray-300"></div>
-    {/* FAQ Item */}
-    <div className="flex justify-between items-center">
-      <span className="font-bold text-gray-800">
-        How do I schedule a waste pickup?
-      </span>
-      <span className="text-yellow-500 font-bold text-xl">→</span>
-    </div>
-    <div className="border-t border-gray-300"></div>
-    {/* FAQ Item */}
-    <div className="flex justify-between items-center">
-      <span className="font-bold text-gray-800">
-        What items can be recycled?
-      </span>
-      <span className="text-yellow-500 font-bold text-xl">→</span>
-    </div>
-    <div className="border-t border-gray-300"></div>
-    {/* FAQ Item */}
-    <div className="flex justify-between items-center">
-      <span className="font-bold text-gray-800">
-        How should I prepare my recyclables?
-      </span>
-      <span className="text-yellow-500 font-bold text-xl">→</span>
-    </div>
-  </div>
-</div>
-
-
-
+          <h3 className="text-lg text-gray-500 font-medium">Have a Question?</h3>
+          <h2 className="text-3xl font-bold mt-2 mb-4">
+            Any Questions? Don't Hesitate to Ask Us
+          </h2>
+          <p className="text-gray-600 mb-6">
+            If you have questions about our waste and recycling services, we
+            are here to help. Reach out to us and we'll provide clear answers
+            and guidance.
+          </p>
+          <div className="space-y-4">
+            {/* FAQ Item */}
+            <div>
+              <h4 className="font-bold text-yellow-500 mb-1">
+                What types of waste do you collect?
+              </h4>
+              <p className="text-gray-600">
+                We collect residential, commercial, and industrial waste,
+                including recyclables, non-recyclables, and organic waste.
+              </p>
+            </div>
+            <div className="border-t border-gray-300"></div>
+            {/* FAQ Item */}
+            <div className="flex justify-between items-center">
+              <span className="font-bold text-gray-800">
+                How do I schedule a waste pickup?
+              </span>
+              <span className="text-yellow-500 font-bold text-xl">→</span>
+            </div>
+            <div className="border-t border-gray-300"></div>
+            {/* FAQ Item */}
+            <div className="flex justify-between items-center">
+              <span className="font-bold text-gray-800">
+                What items can be recycled?
+              </span>
+              <span className="text-yellow-500 font-bold text-xl">→</span>
+            </div>
+            <div className="border-t border-gray-300"></div>
+            {/* FAQ Item */}
+            <div className="flex justify-between items-center">
+              <span className="font-bold text-gray-800">
+                How should I prepare my recyclables?
+              </span>
+              <span className="text-yellow-500 font-bold text-xl">→</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
+
+
+    <section className="bg-gray-599 text-white py-16">
+      <div className="container mx-auto px-6">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+            Read Our Latest News & Blog
+          </h2>
+          <p className="text-gray-300">
+            Stay updated with the latest innovations in waste management and
+            sustainability.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {blogs.map((blog, index) => (
+            <div
+              key={index}
+              className="bg-white text-black rounded-lg shadow-lg overflow-hidden"
+              data-aos={
+                index === 0
+                  ? "fade-up" // Slide up for the first card
+                  : index === 1
+                  ? "fade-left" // Slide left for the second card
+                  : "fade-right" // Slide right for the third card
+              }
+            >
+              <img
+                src={blog.image}
+                alt={blog.title}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-6">
+                <p className="text-sm font-semibold text-green-700 mb-2">
+                  {blog.category} • {blog.date}
+                </p>
+                <h3 className="text-xl font-bold mb-4">{blog.title}</h3>
+                <p className="text-gray-700 mb-4">{blog.description}</p>
+                <button className="bg-yellow-500 hover:bg-yellow-600 text-black py-2 px-4 rounded-md font-semibold transition">
+                  Read More
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+
 
     <section className="bg-green-800 text-white py-16">
       <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 items-center gap-8">
