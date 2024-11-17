@@ -3,12 +3,13 @@
 @tailwind utilities;
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-poppins);
 }
 
 @layer base {
   :root {
     --background: 0 0% 100%;
+    --font-poppins: 'Poppins', sans-serif;
     --foreground: 0 0% 3.9%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 3.9%;
