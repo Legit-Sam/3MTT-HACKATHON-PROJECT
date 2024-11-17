@@ -91,9 +91,20 @@ const blogs = [
       "Learn how to recycle efficiently, identify recyclable materials, and reduce contamination to make your efforts truly impactful.",
   },
 ];
+const [isAnimated, setIsAnimated] = useState(false);
+  
+useEffect(() => {
+  // Set to true to trigger animation after component is mounted
+  const timer = setTimeout(() => setIsAnimated(true), 100); // Delay to ensure sections are at full width
+  return () => clearTimeout(timer);
+}, []);
+
 
   return (
-    <div>
+    <div
+    className={`section ${isAnimated ? 'animate' : ''}`}
+    style={{ width: '100%' }}
+  >
         <header className="bg-darkGreen text-white py-4 fixed top-0 left-0 right-0 z-20">
       <div className="container mx-auto flex justify-between items-center">
       <div className="logo ">
