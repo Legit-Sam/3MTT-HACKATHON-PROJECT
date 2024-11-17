@@ -9,10 +9,10 @@ import { useInView } from "react-intersection-observer";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Package, Users, Shield, RefreshCcw } from 'lucide-react';
-import { metadata } from "./metadata";
+import { metadata } from "../metadata";
 import { motion } from "framer-motion";
 
-export default function Home() {
+export default function About() {
   const [menuOpen, setMenuOpen] = useState(false);
 const { user, isSignedIn } = useUser (); 
 
@@ -222,34 +222,15 @@ useEffect(() => {
     </header>
 
     <section className="relative">
-  <img
-    src="/first.jpg"
-    alt="Worker with garbage truck"
-    className="w-full h-screen object-cover"
-  />
-  <div className="absolute inset-0 flex flex-col justify-center items-center bg-black bg-opacity-50 text-white text-center">
-  <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold">Innovative Solutions for a Cleaner Planet</h1>
-<p className="mt-6 text-lg max-w-2xl">
-  Join us in creating a sustainable future through innovative practices and technologies. Together, we can make a lasting impact on our environment and communities.
-</p>
+    <img
+  src="/first.jpg"
+  alt="Worker with garbage truck"
+  className="w-full h-[400px] object-cover"  // Adjust the height as per your requirement
+/>
+<div className="absolute inset-0 flex flex-col justify-center items-center bg-black bg-opacity-50 text-white text-center">
+  <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold">About Us</h1>  {/* Responsive font size */}
+</div>
 
-   {isSignedIn ? (
- <button className="mt-6 bg-yellow-500 text-white py-3 px-6 rounded-lg text-lg">
- <Link href="/dashboard" className="text-lg" >
-           Make a Request
-          </Link>
-</button>
-   ): (
-    
-<Button className="mt-6 bg-yellow-500 text-white py-3 px-6 rounded-lg text-lg uppercase">
-  <SignInButton className="capitalize" />
-</Button>
-
-   )}
-     
-   
-  
-  </div>
 </section>
 
 

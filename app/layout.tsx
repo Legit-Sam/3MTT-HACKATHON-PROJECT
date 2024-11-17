@@ -15,7 +15,6 @@ const poppins = Poppins({
 });
 
 export default function RootLayout({
-  
   children,
 }: {
   children: React.ReactNode;
@@ -47,8 +46,8 @@ export default function RootLayout({
 
   return (
     <ClerkProvider>
-      <html lang="en" className={poppins.variable}> {/* Add the font variable */}
-        <body className="font-sans"> {/* Use the font */}
+      <html lang="en" className={poppins.variable}> {/* Apply the Poppins font to the HTML class */}
+        <body className="font-sans"> {/* This can stay if you want a fallback or to apply general styles */}
           {children}
           <Toaster />
         </body>
