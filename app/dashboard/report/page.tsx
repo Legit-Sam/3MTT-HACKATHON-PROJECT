@@ -8,7 +8,6 @@ import { Libraries } from '@react-google-maps/api';
 import { createUser, getUserByEmail, createReport, getRecentReports } from '@/utils/db/actions';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast'
-import { SignInButton } from '@clerk/nextjs';
 
 const geminiApiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
@@ -95,33 +94,87 @@ export default function ReportPage() {
   };
 
   const handleVerify = async () => {
-    if (!file) return;
+    if (!file) {
+      toast.error('No file selected!');
+      return;
+    }
   
     setVerificationStatus('verifying');
   
-    // Simulate dummy data for quick verification
-    const dummyVerificationResult = {
-      wasteType: 'Plastic, Paper, Glass, Metal and organic ',
-      quantity: '100 kg',
-      confidence: 0.95,
-    };
-  
     try {
-      // Simulate AI verification delay for a better UX
-      setTimeout(() => {
-        setVerificationResult(dummyVerificationResult);
+      const genAI = new GoogleGenerativeAI(geminiApiKey!);
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  
+      const base64Data = await readFileAsBase64(file);
+      if (!base64Data) {
+        toast.error('Failed to read the file as base64.');
+        setVerificationStatus('failure');
+        return;
+      }
+  
+      const imageParts = [
+        {
+          inlineData: {
+            data: base64Data.split(',')[1],  // Strips off the data URI prefix
+            mimeType: file.type,
+          },
+        },
+      ];
+  
+      const prompt = `You are an expert in waste management and recycling. Analyze this image and provide:
+        1. The type of waste (e.g., plastic, paper, glass, metal, organic)
+        2. An estimate of the quantity or amount (in kg or liters)
+        3. Your confidence level in this assessment (as a percentage)
+  
+        Respond in JSON format like this:
+        {
+          "wasteType": "type of waste",
+          "quantity": "estimated quantity with unit",
+          "confidence": confidence level as a number between 0 and 1
+        }`;
+  
+      const result = await model.generateContent([prompt, ...imageParts]);
+      const response = await result.response;
+      const text = await response.text();  // Await the text response
+  
+      // Log the raw response for debugging purposes
+      console.log('Raw response from AI model:', text);
+  
+      // Safely parse JSON and handle errors
+      let parsedResult;
+      try {
+        // Clean the response to ensure it's valid JSON
+        const jsonStart = text.indexOf('{');  // Find the start of the JSON object
+        const jsonEnd = text.lastIndexOf('}');  // Find the end of the JSON object
+        const validJsonString = text.slice(jsonStart, jsonEnd + 1);  // Extract JSON part
+  
+        parsedResult = JSON.parse(validJsonString);
+      } catch (error) {
+        console.error('Failed to parse JSON response:', error);
+        console.error('Raw response:', text);
+        setVerificationStatus('failure');
+        toast.error('Error: Invalid response format from AI model.');
+        return;
+      }
+  
+      // Check if all required fields exist in the parsed result
+      if (parsedResult.wasteType && parsedResult.quantity && parsedResult.confidence) {
+        setVerificationResult(parsedResult);
         setVerificationStatus('success');
         setNewReport({
           ...newReport,
-          type: dummyVerificationResult.wasteType,
-          amount: dummyVerificationResult.quantity,
+          type: parsedResult.wasteType,
+          amount: parsedResult.quantity,
         });
-        toast.success('Verification successful (using dummy data).');
-      }, 1000); // Simulate a 1-second delay
+      } else {
+        console.error('Invalid verification result:', parsedResult);
+        setVerificationStatus('failure');
+        toast.error('The response did not contain valid waste type, quantity, or confidence data.');
+      }
     } catch (error) {
-      console.error('Error during dummy verification:', error);
+      console.error('Error verifying waste:', error);
       setVerificationStatus('failure');
-      toast.error('Verification failed. Please try again.');
+      toast.error('Error: Unable to verify the waste image. Please try again.');
     }
   };
   
@@ -186,7 +239,7 @@ export default function ReportPage() {
         }));
         setReports(formattedReports);
       } else {
-        <SignInButton />
+        router.push('/login'); 
       }
     };
     checkUser();

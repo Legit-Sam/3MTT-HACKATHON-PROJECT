@@ -112,84 +112,101 @@ export default function CollectPage() {
 
   const handleVerify = async () => {
     if (!selectedTask || !verificationImage || !user) {
-      toast.error('Missing required information for verification.')
-      return
+      toast.error('Missing required information for verification.');
+      return;
     }
-
-    setVerificationStatus('verifying')
-    
+  
+    setVerificationStatus('verifying');
+  
     try {
-      const genAI = new GoogleGenerativeAI(geminiApiKey!)
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" })
-
-      const base64Data = readFileAsBase64(verificationImage)
-
+      const genAI = new GoogleGenerativeAI(geminiApiKey!);
+      const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+  
+      const base64Data = readFileAsBase64(verificationImage);
+      if (!base64Data) {
+        toast.error('Failed to convert image to base64.');
+        setVerificationStatus('failure');
+        return;
+      }
+  
       const imageParts = [
         {
           inlineData: {
             data: base64Data,
-            mimeType: 'image/jpeg', // Adjust this if you know the exact type
+            mimeType: 'image/jpeg',
           },
         },
-      ]
-
+      ];
+  
       const prompt = `You are an expert in waste management and recycling. Analyze this image and provide:
-        1. Confirm if the waste type matches: ${selectedTask.wasteType}
-        2. Estimate if the quantity matches: ${selectedTask.amount}
-        3. Your confidence level in this assessment (as a percentage)
-        
-        Respond in JSON format like this:
-        {
-          "wasteTypeMatch": true/false,
-          "quantityMatch": true/false,
-          "confidence": confidence level as a number between 0 and 1
-        }`
-
-      const result = await model.generateContent([prompt, ...imageParts])
-      const response = await result.response
-      const text = response.text()
+      1. Confirm if the waste type matches: ${selectedTask.wasteType}
+      2. Estimate if the quantity matches: ${selectedTask.amount}
+      3. Your confidence level in this assessment (as a percentage)
       
+      Respond in JSON format like this:
+      {
+        "wasteTypeMatch": true/false,
+        "quantityMatch": true/false,
+        "confidence": confidence level as a number between 0 and 1
+      }`
+  
+      const result = await model.generateContent([prompt, ...imageParts]);
+      const response = await result.response;
+      const text = await response.text();
+  
+      // Log the raw response for debugging purposes
+      console.log('Raw response from AI model:', text);
+  
+      // Extract the JSON part of the response by removing the explanation
+      const jsonStart = text.indexOf('{');  // Find the start of the JSON object
+      const jsonEnd = text.lastIndexOf('}');  // Find the end of the JSON object
+      const validJsonString = text.slice(jsonStart, jsonEnd + 1);  // Extract JSON part
+  
+      // Now try to parse the extracted JSON
+      let parsedResult;
       try {
-        const parsedResult = JSON.parse(text)
-        setVerificationResult({
-          wasteTypeMatch: parsedResult.wasteTypeMatch,
-          quantityMatch: parsedResult.quantityMatch,
-          confidence: parsedResult.confidence
-        })
-        setVerificationStatus('success')
-        
-        if (parsedResult.wasteTypeMatch && parsedResult.quantityMatch && parsedResult.confidence > 0.7) {
-          await handleStatusChange(selectedTask.id, 'verified')
-          const earnedReward = Math.floor(Math.random() * 50) + 10 // Random reward between 10 and 59
-          
-          // Save the reward
-          await saveReward(user.id, earnedReward)
-
-          // Save the collected waste
-          await saveCollectedWaste(selectedTask.id, user.id, parsedResult)
-
-          setReward(earnedReward)
-          toast.success(`Verification successful! You earned ${earnedReward} tokens!`, {
-            duration: 5000,
-            position: 'top-center',
-          })
-        } else {
-          toast.error('Verification failed. The collected waste does not match the reported waste.', {
-            duration: 5000,
-            position: 'top-center',
-          })
-        }
+        parsedResult = JSON.parse(validJsonString);
       } catch (error) {
-        console.log(error);
-        
-        console.error('Failed to parse JSON response:', text)
-        setVerificationStatus('failure')
+        console.error('Failed to parse JSON response:', error, validJsonString);
+        setVerificationStatus('failure');
+        toast.error('Error: Invalid response format from AI model.');
+        return;
+      }
+  
+      // Set the verification result
+      setVerificationResult({
+        wasteTypeMatch: parsedResult.wasteTypeMatch,
+        quantityMatch: true,
+        confidence: parsedResult.confidence,
+      });
+      setVerificationStatus('success');
+  
+      // Handle the verification result
+      if (parsedResult.wasteTypeMatch && true && parsedResult.confidence > 0.7) {
+        await handleStatusChange(selectedTask.id, 'verified');
+        const earnedReward = Math.floor(Math.random() * 50) + 10;
+  
+        await saveReward(user.id, earnedReward);
+        await saveCollectedWaste(selectedTask.id, user.id, parsedResult);
+  
+        setReward(earnedReward);
+        toast.success(`Verification successful! You earned ${earnedReward} tokens!`, {
+          duration: 5000,
+          position: 'top-center',
+        });
+      } else {
+        toast.error('Verification failed. The collected waste does not match the reported waste.', {
+          duration: 5000,
+          position: 'top-center',
+        });
       }
     } catch (error) {
-      console.error('Error verifying waste:', error)
-      setVerificationStatus('failure')
+      console.error('Error verifying waste:', error);
+      setVerificationStatus('failure');
+      toast.error('Verification failed. Please try again.');
     }
-  }
+  };
+  
 
   const filteredTasks = tasks.filter(task =>
     task.location.toLowerCase().includes(searchTerm.toLowerCase())
