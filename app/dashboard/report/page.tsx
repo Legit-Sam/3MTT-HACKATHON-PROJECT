@@ -239,7 +239,7 @@ export default function ReportPage() {
         }));
         setReports(formattedReports);
       } else {
-        router.push('/login'); 
+        </SignInButton>
       }
     };
     checkUser();
