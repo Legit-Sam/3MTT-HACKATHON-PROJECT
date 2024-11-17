@@ -5,6 +5,7 @@ import { ArrowRight, Leaf, Recycle, Users, Coins, MapPin, ChevronRight } from 'l
 import { Button } from '@/components/ui/button'
 import { Poppins } from 'next/font/google'
 import Link from 'next/link'
+import { metadata } from "../metadata";
 // import ContractInteraction from '@/components/ContractInteraction'
 import { getRecentReports, getAllRewards, getWasteCollectionTasks } from '@/utils/db/actions'
 const poppins = Poppins({ 

@@ -9,7 +9,7 @@ import { useInView } from "react-intersection-observer";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Package, Users, Shield, RefreshCcw } from 'lucide-react';
-
+import { metadata } from "./metadata";
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -25,6 +25,10 @@ useEffect(() => {
     duration: 800, // Animation duration
     once: true, // Whether animation should happen only once
   });
+}, []);
+
+useEffect(() => {
+  document.title = metadata.title; // Set the document title
 }, []);
   return (
     <div>

@@ -10,11 +10,12 @@ import { ClerkProvider } from "@clerk/nextjs";
 // Configure the Poppins font
 const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"], // Include desired font weights
-  variable: "--font-poppins", // Optional: CSS variable for global access
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-poppins",
 });
 
 export default function RootLayout({
+  
   children,
 }: {
   children: React.ReactNode;
