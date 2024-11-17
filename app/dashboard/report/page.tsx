@@ -17,7 +17,7 @@ const libraries: Libraries = ['places'];
 export default function ReportPage() {
   const [user, setUser] = useState<{ id: number; email: string; name: string } | null>(null);
   const router = useRouter();
-
+  const [isSignedIn, setIsSignedIn] = useState(false);
   const [reports, setReports] = useState<Array<{
     id: number;
     location: string;
@@ -221,7 +221,6 @@ export default function ReportPage() {
       setIsSubmitting(false);
     }
   };
-
   useEffect(() => {
     const checkUser = async () => {
       const email = localStorage.getItem('userEmail');
@@ -231,19 +230,24 @@ export default function ReportPage() {
           user = await createUser(email, 'Anonymous User');
         }
         setUser(user);
-        
+        setIsSignedIn(true); // User is signed in
+
         const recentReports = await getRecentReports();
         const formattedReports = recentReports.map(report => ({
           ...report,
-          createdAt: report.createdAt.toISOString().split('T')[0]
+          createdAt: report.createdAt.toISOString().split('T')[0],
         }));
         setReports(formattedReports);
       } else {
-        </SignInButton>
+        setIsSignedIn(false); // No user email found
       }
     };
+
     checkUser();
-  }, [router]);
+  }, []);
+
+  
+         
 
   return (
     <div className="p-8 max-w-4xl mx-auto">
