@@ -117,18 +117,31 @@ useEffect(() => {
 
 
         <nav className="hidden lg:flex space-x-4">
-          <a href="#" className="text-lg hover:underline">
-            Home
-          </a>
-          <a href="#" className="text-lg hover:underline">
-            About
-          </a>
-          <a href="#" className="text-lg hover:underline">
-            Services
-          </a>
-          <a href="#" className="text-lg hover:underline">
-            Contact
-          </a>
+        <Link href="/" passHref className="text-lg text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105">
+      
+          Home
+       
+      </Link>
+      <Link href="/about" passHref className="text-lg text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105">
+                  About
+       
+      </Link>
+      <Link href="/services" passHref className="text-lg text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105">
+        Services
+      </Link>
+      <Link href="/contact" passHref className="text-lg text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105">
+        Contact
+      </Link>
+
+      {isSignedIn ? (
+          <Link href="/dashboard" className="text-lg text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105" >
+            Dashboard
+          </Link>
+         ): (
+          
+            <SignInButton  className="text-lg text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105"  />
+         
+         )}
         </nav>
 
         {/* Mobile Toggle Button */}
@@ -179,31 +192,31 @@ useEffect(() => {
           </svg>
         </button>
         <nav className="flex flex-col items-center justify-center space-y-8 h-full">
-          <Link className="text-lg hover:underline" href="/">
-         
-            Home
-        
-          </Link>
-          <a href="#" className="text-lg hover:underline">
-            About
-          </a>
-          <a href="#" className="text-lg hover:underline">
-            Services
-          </a>
-          <a href="#" className="text-lg hover:underline">
-            Contact
-          </a>
-         {isSignedIn ? (
-          <Link href="/dashboard" className="text-lg" >
-            Dashboard
-          </Link>
-         ): (
-          <Button>
-            <SignInButton />
-          </Button>
-         )}
-     
+        <Link href="/" passHref className="text-lg text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105">
       
+      Home
+   
+  </Link>
+  <Link href="/about" passHref className="text-lg text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105">
+              About
+   
+  </Link>
+  <Link href="/services" passHref className="text-lg text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105">
+    Services
+  </Link>
+  <Link href="/contact" passHref className="text-lg text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105">
+    Contact
+  </Link>
+
+  {isSignedIn ? (
+      <Link href="/dashboard" className="text-lg text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105" >
+        Dashboard
+      </Link>
+     ): (
+      
+        <SignInButton className="text-lg text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105"  />
+     
+     )}
         </nav>
       </div>
     </header>
@@ -228,10 +241,10 @@ useEffect(() => {
 </button>
    ): (
     
-<Button className="mt-5 w-[160px] h-[50px]">
-<SignInButton />
-
+<Button className="mt-6 bg-yellow-500 text-white py-3 px-6 rounded-lg text-lg uppercase">
+  <SignInButton className="capitalize" />
 </Button>
+
    )}
      
    
@@ -628,9 +641,16 @@ useEffect(() => {
           <h2 className="text-3xl sm:text-4xl font-bold mb-6 leading-tight">
             Take the First Step Towards Sustainability
           </h2>
-          <button className="bg-yellow-500 hover:bg-yellow-600 text-black py-3 px-6 rounded-md font-semibold transition">
-            Get Started
-          </button>
+       {isSignedIn ? (
+  
+         <Link href="/dashboard" className="bg-yellow-500 hover:bg-yellow-600 text-black py-3 px-6 rounded-md font-semibold transition"> Proceed to Dashboard</Link>
+        
+        
+       ):
+       
+       <SignInButton className="bg-yellow-500 hover:bg-yellow-600 text-black py-3 px-6 rounded-md font-semibold transition" />
+    
+       }
         </div>
 
         {/* Image Section */}
@@ -743,7 +763,7 @@ useEffect(() => {
 
   {/* Bottom Section */}
   <div className="border-t border-green-700 mt-8 pt-4 text-center text-sm">
-    <p>&copy; 2023 Diligent. All Rights Reserved.</p>
+    <p>&copy; 2024 Team Waste Trackers. All Rights Reserved.</p>
   </div>
 </footer>
 
