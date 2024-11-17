@@ -50,19 +50,19 @@ const cardVariants = {
   }),
 };
 
-const sectionVariants = {
-  hidden: { opacity: 0, x: -100 }, // Hidden off-screen to the left
-  visible: {
-    opacity: 1,
-    x: 0, // Comes back to its position
-    transition: {
-      type: "spring",
-      stiffness: 100,
-      damping: 20,
-      duration: 1,
-    },
-  },
-};
+// const sectionVariants = {
+//   hidden: { opacity: 0, x: -100 }, // Hidden off-screen to the left
+//   visible: {
+//     opacity: 1,
+//     x: 0, // Comes back to its position
+//     transition: {
+//       type: "spring",
+//       stiffness: 100,
+//       damping: 20,
+//       duration: 1,
+//     },
+//   },
+// };
 
 
 const blogs = [
@@ -455,16 +455,10 @@ const blogs = [
     </div>
   </section>
 
-  <section className="bg-gray-50 py-16">
+    <section className="bg-gray-50 py-16">
       <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* Left: Request Your Quote Form */}
-        <motion.div
-          className="bg-green-900 text-white p-8 rounded-lg shadow-md"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.8 }} // Triggers once when 80% of the section is in view
-          variants={sectionVariants}
-        >
+        <div className="bg-green-900 text-white p-8 rounded-lg shadow-md">
           <h2 className="text-2xl font-bold mb-6">Request Your Quote</h2>
           <form className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -515,59 +509,58 @@ const blogs = [
               Submit Your Request
             </button>
           </form>
-        </motion.div>
+        </div>
 
         {/* Right: FAQ Section */}
         <div>
-          <h3 className="text-lg text-gray-500 font-medium">Have a Question?</h3>
-          <h2 className="text-3xl font-bold mt-2 mb-4">
-            Any Questions? Don't Hesitate to Ask Us
-          </h2>
-          <p className="text-gray-600 mb-6">
-            If you have questions about our waste and recycling services, we
-            are here to help. Reach out to us and we'll provide clear answers
-            and guidance.
-          </p>
-          <div className="space-y-4">
-            {/* FAQ Item */}
-            <div>
-              <h4 className="font-bold text-yellow-500 mb-1">
-                What types of waste do you collect?
-              </h4>
-              <p className="text-gray-600">
-                We collect residential, commercial, and industrial waste,
-                including recyclables, non-recyclables, and organic waste.
-              </p>
-            </div>
-            <div className="border-t border-gray-300"></div>
-            {/* FAQ Item */}
-            <div className="flex justify-between items-center">
-              <span className="font-bold text-gray-800">
-                How do I schedule a waste pickup?
-              </span>
-              <span className="text-yellow-500 font-bold text-xl">→</span>
-            </div>
-            <div className="border-t border-gray-300"></div>
-            {/* FAQ Item */}
-            <div className="flex justify-between items-center">
-              <span className="font-bold text-gray-800">
-                What items can be recycled?
-              </span>
-              <span className="text-yellow-500 font-bold text-xl">→</span>
-            </div>
-            <div className="border-t border-gray-300"></div>
-            {/* FAQ Item */}
-            <div className="flex justify-between items-center">
-              <span className="font-bold text-gray-800">
-                How should I prepare my recyclables?
-              </span>
-              <span className="text-yellow-500 font-bold text-xl">→</span>
-            </div>
-          </div>
-        </div>
+  <h3 className="text-lg text-gray-500 font-medium">Have a Question?</h3>
+  <h2 className="text-3xl font-bold mt-2 mb-4">
+    Any Questions? Don't Hesitate to Ask Us
+  </h2>
+  <p className="text-gray-600 mb-6">
+    If you have questions about our waste and recycling services, we are here to help. Reach out to us and we'll provide clear answers and guidance.
+  </p>
+  <div className="space-y-4">
+    {/* FAQ Item */}
+    <div>
+      <h4 className="font-bold text-yellow-500 mb-1">
+        What types of waste do you collect?
+      </h4>
+      <p className="text-gray-600">
+        We collect residential, commercial, and industrial waste, including recyclables, non-recyclables, and organic waste.
+      </p>
+    </div>
+    <div className="border-t border-gray-300"></div>
+    {/* FAQ Item */}
+    <div className="flex justify-between items-center">
+      <span className="font-bold text-gray-800">
+        How do I schedule a waste pickup?
+      </span>
+      <span className="text-yellow-500 font-bold text-xl">→</span>
+    </div>
+    <div className="border-t border-gray-300"></div>
+    {/* FAQ Item */}
+    <div className="flex justify-between items-center">
+      <span className="font-bold text-gray-800">
+        What items can be recycled?
+      </span>
+      <span className="text-yellow-500 font-bold text-xl">→</span>
+    </div>
+    <div className="border-t border-gray-300"></div>
+    {/* FAQ Item */}
+    <div className="flex justify-between items-center">
+      <span className="font-bold text-gray-800">
+        How should I prepare my recyclables?
+      </span>
+      <span className="text-yellow-500 font-bold text-xl">→</span>
+    </div>
+  </div>
+</div>
+
+
+
       </div>
     </section>
-
 
     <section className="bg-gray-599 text-white py-16">
       <div className="container mx-auto px-6">
