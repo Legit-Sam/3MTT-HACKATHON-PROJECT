@@ -107,12 +107,14 @@ useEffect(() => {
   >
         <header className="bg-darkGreen text-white py-4 fixed top-0 left-0 right-0 z-20">
       <div className="container mx-auto flex justify-between items-center">
-      <div className="logo ">
-  <img 
+      <div className="logo ml-3 md:ml-2 sm:ml-2 xl:m-0 lg:m-0 ">
+      <Link href="/">
+ <img 
     src="/logo.png" 
     alt="Logo" 
     className="w-32  md:w-40 lg:w-48" 
   />
+ </Link>
 </div>
 
 
@@ -222,11 +224,10 @@ useEffect(() => {
     </header>
 
     <section className="relative">
-  <img
-    src="/first.jpg"
-    alt="Worker with garbage truck"
-    className="w-full h-screen object-cover"
-  />
+    <img
+  src="/first.jpg"
+  alt="Worker with garbage truck"
+  className="w-full h-[600px] lg:h-screen sm:h-[400px] md:h-[500px] xl:h-screen object-cover" />
   <div className="absolute inset-0 flex flex-col justify-center items-center bg-black bg-opacity-50 text-white text-center">
   <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold">Innovative Solutions for a Cleaner Planet</h1>
 <p className="mt-6 text-lg max-w-2xl">
@@ -589,10 +590,10 @@ useEffect(() => {
     <section className="bg-gray-599 text-white py-16">
       <div className="container mx-auto px-6">
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-black">
             Read Our Latest News & Blog
           </h2>
-          <p className="text-gray-300">
+          <p className="text-gray-700">
             Stay updated with the latest innovations in waste management and
             sustainability.
           </p>
@@ -653,7 +654,7 @@ useEffect(() => {
        }
         </div>
 
-        {/* Image Section */}
+      
         <div
           className="flex justify-center"
           data-aos="zoom-in" // Pop-out effect
@@ -698,24 +699,27 @@ useEffect(() => {
       <h3 className="text-xl font-bold mb-4">Quick Links</h3>
       <ul>
         <li className="mb-2">
-          <a href="#" className="hover:underline">
-            Home
-          </a>
+        <Link href="/" passHref className="text-lg text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105">
+      
+      Home
+   
+  </Link>
         </li>
         <li className="mb-2">
-          <a href="#" className="hover:underline">
-            About
-          </a>
+        <Link href="/about" passHref className="text-lg text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105">
+              About
+   
+  </Link>
         </li>
         <li className="mb-2">
-          <a href="#" className="hover:underline">
-            Services
-          </a>
+        <Link href="/services" passHref className="text-lg text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105">
+    Services
+  </Link>
         </li>
         <li className="mb-2">
-          <a href="#" className="hover:underline">
-            Contact
-          </a>
+        <Link href="/contact" passHref className="text-lg text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105">
+    Contact
+  </Link>
         </li>
       </ul>
     </div>
