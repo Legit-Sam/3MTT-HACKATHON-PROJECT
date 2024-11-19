@@ -10,7 +10,7 @@ const sidebarItems = [
   { href: "/dashboard/rewards", icon: Coins, label: "Rewards" },
   { href: "/dashboard/leaderboard", icon: Medal, label: "Leaderboard" },
   { href: "/dashboard/educationalBlog", icon: Book, label: "Educational Blog" }, 
-  { href: "/dashboard/Waste Analysis", icon: Calculator, label: "Waste Analysis" },
+  { href: "/dashboard/WasteAnalysis", icon: Calculator, label: "Waste Analysis" },
 ]
 
 interface SidebarProps {

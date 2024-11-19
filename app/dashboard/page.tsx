@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { metadata } from "../metadata";
 // import ContractInteraction from '@/components/ContractInteraction'
 import { getRecentReports, getAllRewards, getWasteCollectionTasks } from '@/utils/db/actions'
+import { SignInButton, useUser } from '@clerk/nextjs'
 const poppins = Poppins({ 
   weight: ['300', '400', '600'],
   subsets: ['latin'],
@@ -75,9 +76,7 @@ export default function Home() {
     fetchImpactData();
   }, []);
 
-  const login = () => {
-    setLoggedIn(true);
-  };
+  const login = useUser()
 
   return (
     <div className={`container mx-auto px-4 py-16 ${poppins.className}`}>
@@ -91,16 +90,15 @@ export default function Home() {
         </p>
         {!loggedIn ? (
           <Button onClick={login} className="bg-green-600 hover:bg-green-700 text-white text-lg py-6 px-10 rounded-full font-medium transition-all duration-300 ease-in-out transform hover:scale-105">
-            Get Started
+           <Link href="/dashboard/report" className='flex items-center'>
+            Report Waste
             <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
           </Button>
         ) : (
-          <Link href="/report">
             <Button className="bg-green-600 hover:bg-green-700 text-white text-lg py-6 px-10 rounded-full font-medium transition-all duration-300 ease-in-out transform hover:scale-105">
-              Report Waste
-              <ArrowRight className="ml-2 h-5 w-5" />
+             <SignInButton />
             </Button>
-          </Link>
         )}
       </section>
       
