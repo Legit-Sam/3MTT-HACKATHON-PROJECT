@@ -1,20 +1,61 @@
-import React from "react";
+"use client";
+import { Bar } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
 
-const RecyclingMap = () => {
-  return (
-    <section className="w-full h-auto p-4">
-      <div className="relative w-full h-96 sm:h-[500px] lg:h-[700px]">
-        <iframe
-          id="map"
-          className="absolute inset-0 w-full h-full"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d19800.000000000004!2d-0.119543!3d51.503324!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761b3333333333%3A0x3333333333333333!2slastminute.com%20London%20Eye!5e0!3m2!1sen!2suk!4v1633333333333!5m2!1sen!2suk"
-          allowFullScreen={true}
-          loading="lazy"
-          title="Google Map"
-        ></iframe>
-      </div>
-    </section>
-  );
+// Register Chart.js modules
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+
+const data = {
+  labels: ["Adankolo", "Barracks", "Felele", "Gadumo", "Ganaja", "Jimgbe", "Kabawa", "Karaworo", "Lokongoma", "Phase II", "Serkin Noma", "Shetima", "Zango", "Zone 8"],
+  datasets: [
+    {
+      label: "Waste Percentage",
+      data: [95, 78, 70, 80, 80, 78, 98, 80, 70, 58, 89, 88, 97, 93 ], // Example percentages
+      backgroundColor: [
+        "#1d4ed8", 
+        "#16a34a", 
+        "#facc15", 
+        "#dc2626", 
+        "#0ea5e9",
+      ],
+      borderWidth: 1,
+    },
+  ],
 };
 
-export default RecyclingMap;
+const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: "top" as const,
+    },
+    title: {
+      display: true,
+      text: "Waste Locations in Lokoja, Kogi State (%)",
+    },
+  },
+};
+
+export default function Home() {
+  return (
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
+      <div className="w-full max-w-4xl p-4 md:p-6 bg-white rounded-lg shadow-lg">
+        <h1 className="text-xl md:text-2xl font-bold text-center mb-4">
+          Waste Location Analysis
+        </h1>
+        <div className="relative overflow-x-auto">
+          <Bar data={data} options={options} />
+        </div>
+      </div>
+    </div>
+  );
+}
+

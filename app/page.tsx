@@ -8,7 +8,7 @@ import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { Package, Users, Shield, RefreshCcw } from 'lucide-react';
+import { Package, Users, Shield, RefreshCcw, Recycle, ThermometerSnowflake, DiamondPlusIcon } from 'lucide-react';
 import { metadata } from "./metadata";
 import { motion } from "framer-motion";
 
@@ -257,19 +257,21 @@ useEffect(() => {
 
 
               <section className="bg-green-800 text-white py-8">
-                        <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 text-center p-4">
-                        <div>
-    <i className="fas fa-recycle text-4xl mb-2"></i>
+<div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 text-center p-4">
+     <div className='hover:'>
+   <ThermometerSnowflake  className='text-6xl flex items-center justify-center w-full mb-5 '/>
     <h3 className="text-xl font-bold">Reliable Collection</h3>
     <p>We ensure timely and dependable waste collection services, designed to keep your environment clean and sustainable.</p>
 </div>
 <div>
-    <i className="fas fa-recycle text-4xl mb-2"></i>
+<Recycle  className='text-6xl flex items-center justify-center w-full mb-5 '/>
+
     <h3 className="text-xl font-bold">Extensive Recycling</h3>
     <p>Our recycling solutions help transform waste into reusable materials, reducing landfill impact and promoting sustainability.</p>
 </div>
 <div>
-    <i className="fas fa-recycle text-4xl mb-2"></i>
+<DiamondPlusIcon  className='flex items-center justify-center w-full mb-5 '/>
+
     <h3 className="text-xl font-bold">Safe Disposal</h3>
     <p>We prioritize eco-friendly disposal methods to handle hazardous and non-hazardous waste with utmost care and compliance.</p>
 </div>

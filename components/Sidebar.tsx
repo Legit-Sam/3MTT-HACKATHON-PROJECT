@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { usePathname } from 'next/navigation'
 import { Button } from "@/components/ui/button"
-import { MapPin, Trash, Coins, Medal, Settings, Home, Car, Book, Map } from "lucide-react"
+import { MapPin, Trash, Coins, Medal, Settings, Home, Book, Map, Calculator } from "lucide-react"
 
 const sidebarItems = [
   { href: "/", icon: Home, label: "Home" },
@@ -10,7 +10,7 @@ const sidebarItems = [
   { href: "/dashboard/rewards", icon: Coins, label: "Rewards" },
   { href: "/dashboard/leaderboard", icon: Medal, label: "Leaderboard" },
   { href: "/dashboard/educationalBlog", icon: Book, label: "Educational Blog" }, 
-  { href: "/dashboard/RecyclingCenters", icon: Map, label: "Recycling Centers" },
+  { href: "/dashboard/Waste Analysis", icon: Calculator, label: "Waste Analysis" },
 ]
 
 interface SidebarProps {
