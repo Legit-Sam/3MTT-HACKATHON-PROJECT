@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { useClerk, useUser , SignIn, SignInButton } from '@clerk/nextjs'; // Import Clerk hooks
+import { useClerk, useUser , SignIn, SignInButton, SignOutButton } from '@clerk/nextjs'; // Import Clerk hooks
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
 import AOS from "aos";
@@ -119,31 +119,37 @@ useEffect(() => {
 
 
         <nav className="hidden lg:flex space-x-4">
-        <Link href="/" passHref className="text-lg text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105">
+        <Link href="/" passHref className="text-xl text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105">
       
           Home
        
       </Link>
-      <Link href="/about" passHref className="text-lg text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105">
+      <Link href="/about" passHref className="text-xl text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105">
                   About
        
       </Link>
-      <Link href="/services" passHref className="text-lg text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105">
+      <Link href="/services" passHref className="text-xl text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105">
         Services
       </Link>
-      <Link href="/contact" passHref className="text-lg text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105">
+      <Link href="/contact" passHref className="text-xl text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105">
         Contact
       </Link>
 
       {isSignedIn ? (
-          <Link href="/dashboard" className="text-lg text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105" >
+          <Link href="/dashboard" className="text-xl text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105" >
             Dashboard
           </Link>
          ): (
           
-            <SignInButton  className="text-lg text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105"  />
+            <SignInButton  className="text-xl text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105"  />
          
          )}
+
+{isSignedIn ? (
+      <SignOutButton className="text-xl text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105" />
+     ):
+     null
+     }
         </nav>
 
         {/* Mobile Toggle Button */}
@@ -219,6 +225,11 @@ useEffect(() => {
         <SignInButton className="text-xl text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105"  />
      
      )}
+     {isSignedIn ? (
+      <SignOutButton className="text-xl text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105" />
+     ):
+     null
+     }
         </nav>
       </div>
     </header>
