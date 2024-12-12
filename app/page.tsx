@@ -194,29 +194,29 @@ useEffect(() => {
           </svg>
         </button>
         <nav className="flex flex-col items-center justify-center space-y-8 h-full">
-        <Link href="/" passHref className="text-lg text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105">
+        <Link href="/" passHref className="text-xl text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105">
       
       Home
    
   </Link>
-  <Link href="/about" passHref className="text-lg text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105">
+  <Link href="/about" passHref className="text-xl text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105">
               About
    
   </Link>
-  <Link href="/services" passHref className="text-lg text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105">
+  <Link href="/services" passHref className="text-xl text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105">
     Services
   </Link>
-  <Link href="/contact" passHref className="text-lg text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105">
+  <Link href="/contact" passHref className="text-xl text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105">
     Contact
   </Link>
 
   {isSignedIn ? (
-      <Link href="/dashboard" className="text-lg text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105" >
+      <Link href="/dashboard" className="text-xl text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105" >
         Dashboard
       </Link>
      ): (
       
-        <SignInButton className="text-lg text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105"  />
+        <SignInButton className="text-xl text-gray-200 hover:text-yellow-500 hover:underline transition duration-300 ease-in-out transform hover:scale-105"  />
      
      )}
         </nav>
@@ -229,7 +229,7 @@ useEffect(() => {
   alt="Worker with garbage truck"
   className="w-full h-[600px] lg:h-screen sm:h-[400px] md:h-[500px] xl:h-screen object-cover" />
   <div className="absolute inset-0 flex flex-col justify-center items-center bg-black bg-opacity-50 text-white text-center">
-  <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold">Innovative Solutions for a Cleaner Planet</h1>
+  <h1 className="text-4xl sm:text-6xl md:text-5xl  font-bold">Innovative Solutions for a Cleaner Planet</h1>
 <p className="mt-6 text-lg max-w-2xl">
   Join us in creating a sustainable future through innovative practices and technologies. Together, we can make a lasting impact on our environment and communities.
 </p>
@@ -256,21 +256,21 @@ useEffect(() => {
 
 
 
-              <section className="bg-green-800 text-white py-8">
-<div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 text-center p-4">
+              <section className="bg-green-800 text-white py-8  hover:bg-green-600 transition">
+<div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-20 sm:gap-10  xl:gap-13 text-center p-4">
      <div className='hover:'>
-   <ThermometerSnowflake  className='text-6xl flex items-center justify-center w-full mb-5 '/>
+   <ThermometerSnowflake  className='size-10 flex items-center justify-center w-full mb-5 '/>
     <h3 className="text-xl font-bold">Reliable Collection</h3>
     <p>We ensure timely and dependable waste collection services, designed to keep your environment clean and sustainable.</p>
 </div>
 <div>
-<Recycle  className='text-6xl flex items-center justify-center w-full mb-5 '/>
+<Recycle  className='size-10 flex items-center justify-center w-full mb-5 '/>
 
     <h3 className="text-xl font-bold">Extensive Recycling</h3>
     <p>Our recycling solutions help transform waste into reusable materials, reducing landfill impact and promoting sustainability.</p>
 </div>
 <div>
-<DiamondPlusIcon  className='flex items-center justify-center w-full mb-5 '/>
+<DiamondPlusIcon  className='size-10 flex items-center justify-center w-full mb-5 '/>
 
     <h3 className="text-xl font-bold">Safe Disposal</h3>
     <p>We prioritize eco-friendly disposal methods to handle hazardous and non-hazardous waste with utmost care and compliance.</p>
@@ -608,10 +608,10 @@ useEffect(() => {
               className="bg-white text-black rounded-lg shadow-lg overflow-hidden"
               data-aos={
                 index === 0
-                  ? "fade-up" // Slide up for the first card
+                  ? "fade-up" 
                   : index === 1
-                  ? "fade-left" // Slide left for the second card
-                  : "fade-right" // Slide right for the third card
+                  ? "fade-left" 
+                  : "fade-right"
               }
             >
               <img
